@@ -4,6 +4,7 @@ import com.mikewoo.study.domain.Product;
 import com.mikewoo.study.service.ProductService;
 import com.mikewoo.study.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,9 @@ import java.util.Objects;
 @RequestMapping("/api/v1/product")
 public class ProductController {
 
+    @Value("${server.port}")
+    private Integer port;
+
     @Autowired
     private ProductService productService;
 
@@ -28,7 +32,7 @@ public class ProductController {
      */
     @GetMapping("")
     public Object list() {
-        return ResponseResult.ok(productService.listProduct());
+        return ResponseResult.build(200, "product service port " + port, productService.listProduct());
     }
 
     /**
@@ -40,8 +44,8 @@ public class ProductController {
     public Object findById(@PathVariable("id") Long id) {
         Product product = productService.findById(id);
         if (Objects.nonNull(product)) {
-            return ResponseResult.ok(product);
+            return ResponseResult.build(200, "product service port " + port, product);
         }
-        return ResponseResult.build(200, "用户不存在");
+        return ResponseResult.build(200, "用户不存在, product service port " + port);
     }
 }

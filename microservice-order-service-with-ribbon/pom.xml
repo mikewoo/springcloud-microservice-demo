@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mikewoo.study</groupId>
-    <artifactId>microservice-order-service</artifactId>
+    <artifactId>microservice-order-service-with-ribbon</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>microservice-order-service</name>
-    <description>Order service demo project for Spring Cloud Microservice</description>
+    <name>microservice-order-service-with-ribbon</name>
+    <description>Order service demo project base ribbon for Spring Cloud Microservice</description>
 
     <properties>
         <java.version>1.8</java.version>

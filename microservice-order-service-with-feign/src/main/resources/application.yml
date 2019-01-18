@@ -1,5 +1,5 @@
 server:
-  port: 8731
+  port: 8741
 
 eureka:
   instance:
@@ -14,7 +14,7 @@ eureka:
 
 spring:
   application:
-    name: microservice-order-service-with-ribbon
+    name: microservice-order-service-with-feign
 
 # 给某个服务配置Ribbon自定义的负载均衡策略
 microservice-order-service:

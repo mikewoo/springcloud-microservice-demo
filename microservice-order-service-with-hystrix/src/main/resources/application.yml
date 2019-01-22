@@ -25,12 +25,24 @@ microservice-product-service:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
-# 修改调用超时时间
+# 修改feign调用超时时间
 feign:
   hystrix:
     enabled: true
   client:
     config:
       default:
-        connectTimeout: 2000
-        readTimeout: 2000
+        connectTimeout: 4000
+        readTimeout: 4000
+
+# 调整Hystrix默认超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          # 禁用Hystrix超时时间设置(实际应用不要禁用超时设置)
+          # timeout:
+          #   enabled: true
+          thread:
+            timeoutInMilliseconds: 5000

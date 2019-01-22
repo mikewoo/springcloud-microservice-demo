@@ -42,6 +42,11 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     public Object findById(@PathVariable("id") Long id) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Product product = productService.findById(id);
         if (Objects.nonNull(product)) {
             return ResponseResult.build(200, "product service port " + port, product);

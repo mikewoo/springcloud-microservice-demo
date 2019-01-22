@@ -17,6 +17,14 @@ spring:
     name: microservice-order-service-with-feign
 
 # 给某个服务配置Ribbon自定义的负载均衡策略
-microservice-order-service:
+microservice-product-service:
   ribbon:
-    NIWSServerListClassName: com.netflix.loadbalancer.RandomRule
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# 修改调用超时时间
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 2000

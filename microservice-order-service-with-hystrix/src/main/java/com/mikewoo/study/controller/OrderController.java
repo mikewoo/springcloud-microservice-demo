@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -36,7 +37,7 @@ public class OrderController {
 
     @PostMapping("/{userId}")
     @HystrixCommand(fallbackMethod = "saveOrderFailed")
-    public Object save(@PathVariable("userId") Long userId, @RequestBody ShoppingList shoppingList) throws IOException {
+    public Object save(@PathVariable("userId") Long userId, @RequestBody ShoppingList shoppingList, HttpServletRequest request) throws IOException {
         if (Objects.nonNull(shoppingList) && Objects.nonNull(userId)) {
             shoppingList.setUserId(userId);
             Order order = orderService.save(shoppingList);
@@ -52,12 +53,13 @@ public class OrderController {
      * @param shoppingList
      * @return
      */
-    private Object saveOrderFailed(Long userId, ShoppingList shoppingList) {
+    private Object saveOrderFailed(Long userId, ShoppingList shoppingList, HttpServletRequest request) {
+        final String remoteAddr = request.getRemoteAddr();
         msgSenderExecutorService.submit(() -> {
             String key = "ORDER:SAVE:FAILED:KEY";
             String value = redisTemplate.opsForValue().get(key);
             if (StringUtils.isBlank(value)) {
-                log.info("服务调用失败，发送报警通知");
+                log.info("紧急通知，服务调用失败，发送报警通知，客户端地址：{}", remoteAddr);
                 // TODO: 调用短信服务，发送告警短信
                 redisTemplate.opsForValue().set(key, "oder-save-failed", 30, TimeUnit.SECONDS);
             } else {

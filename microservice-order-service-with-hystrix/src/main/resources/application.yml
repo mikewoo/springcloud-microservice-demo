@@ -15,6 +15,10 @@ eureka:
 spring:
   application:
     name: microservice-order-service-with-hystrix
+  redis:
+    host: 192.168.1.242
+    port: 6379
+    timeout: 2000
 
 # 给某个服务配置Ribbon自定义的负载均衡策略
 microservice-product-service:

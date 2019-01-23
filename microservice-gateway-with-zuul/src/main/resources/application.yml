@@ -15,6 +15,11 @@ eureka:
 spring:
   application:
     name: microservice-gateway-with-zuul
+  zipkin:
+    base-url: http://localhost:9411/
+  sleuth:
+    sampler:
+      probability: 1
 
 # 自定义转发规则
 zuul:

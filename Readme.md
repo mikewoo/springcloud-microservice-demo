@@ -22,5 +22,6 @@ http://***:9411/zipkin
 
 注意： zipkin使用ES这类数据库做持久化之后，是不会自动生成服务之间的依赖关系图
 官方提供了依赖图生成工具，请参考：https://github.com/openzipkin/zipkin-dependencies
-STORAGE_TYPE=elasticsearch ES_HOSTS=192.168.33.100:9201 java -jar zipkin-dependencies.jar
+
+STORAGE_TYPE=elasticsearch ES_HOSTS=192.168.33.100:9200 java -jar zipkin-dependencies.jar
 

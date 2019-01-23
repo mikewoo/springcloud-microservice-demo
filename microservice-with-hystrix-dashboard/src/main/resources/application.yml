@@ -1,0 +1,46 @@
+server:
+  port: 8781
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+  client:
+    eureka-server-port: 8761
+    serviceUrl:
+      defaultZone: http://localhost:${eureka.client.eureka-server-port}/eureka/
+
+spring:
+  application:
+    name: microservice-with-hystrix-dashboard
+  redis:
+    host: 192.168.1.242
+    port: 6379
+    timeout: 2000
+
+# 修改feign调用超时时间
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 1000
+
+# 调整Hystrix默认超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

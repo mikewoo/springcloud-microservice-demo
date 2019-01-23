@@ -3,6 +3,7 @@ package com.mikewoo.study.controller;
 import com.mikewoo.study.domain.Product;
 import com.mikewoo.study.service.ProductService;
 import com.mikewoo.study.utils.ResponseResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * @author Eric Gui
  * @date 2019/1/17
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductController {
@@ -43,7 +46,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public Object findById(@PathVariable("id") Long id) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(new Random().nextInt(40) * 30);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

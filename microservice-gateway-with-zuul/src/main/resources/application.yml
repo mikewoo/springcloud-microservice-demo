@@ -1,0 +1,26 @@
+server:
+  port: 8971
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+  client:
+    eureka-server-port: 8761
+    serviceUrl:
+      defaultZone: http://localhost:${eureka.client.eureka-server-port}/eureka/
+
+spring:
+  application:
+    name: microservice-gateway-with-zuul
+
+# 自定义转发规则
+zuul:
+  routes:
+    microservice-product-service: /microservice/products/**
+    microservice-order-service-with-hystrix: /microservice/orders/**
+
+  # 忽略默认访问规则
+  ignored-patterns: /*-product-service/**

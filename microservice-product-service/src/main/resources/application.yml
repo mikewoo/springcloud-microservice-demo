@@ -16,7 +16,13 @@ spring:
   application:
     name: microservice-product-service
   zipkin:
-    base-url: http://localhost:9411/
+    # base-url: http://localhost:9411/ #默认http通信的配置方式
+    sender:
+      type: kafka
+    service:
+      name: ${spring.application.name} #zipkin里看到的的service name
+  kafka:
+      bootstrap-servers: 192.168.33.100:9092 #集群的情况直接用“,”分割
   sleuth:
     sampler:
       probability: 1

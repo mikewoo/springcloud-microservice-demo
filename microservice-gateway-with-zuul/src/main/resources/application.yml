@@ -24,3 +24,12 @@ zuul:
 
   # 忽略默认访问规则
   ignored-patterns: /*-product-service/**
+
+# 调整Hystrix默认超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000

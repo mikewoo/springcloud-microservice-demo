@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: microservice-product-service
+  rabbitmq:
+    host: 192.168.33.172
+    port: 5672
+    username: guest
+    password: guest
+
+  #指定配置中心
+  cloud:
+    config:
+      discovery:
+        service-id: microservice-config-server
+        enabled: true
+      profile: local
+      #可以用lable区分环境，默认lable是master分支
+      #label: test
+
+#暴露全部的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+

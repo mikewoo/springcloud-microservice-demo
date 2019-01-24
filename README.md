@@ -28,3 +28,7 @@ ES_HOSTS: es的url
 
 STORAGE_TYPE=elasticsearch ES_HOSTS=192.168.33.100:9200 java -jar zipkin-dependencies.jar
 
+
+## 配置中心仓库
+
+github: https://github.com/mikewoo/microservice-demo-config.git

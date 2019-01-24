@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: microservice-product-service
+
+  #指定配置中心
+  cloud:
+    config:
+      discovery:
+        service-id: microservice-config-server
+        enabled: true
+      profile: local
+      #可以用lable区分环境，默认lable是master分支
+      #label: test

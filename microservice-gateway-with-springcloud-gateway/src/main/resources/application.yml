@@ -35,7 +35,7 @@ spring:
         - id: product-service
           uri: lb://MICROSERVICE-PRODUCT-SERVICE
           predicates:
-            - Path=/products/**
+          - Path=/products/**
           filters:
           - StripPrefix=1
 
@@ -45,6 +45,24 @@ spring:
           - Path=/orders/**
           filters:
           - StripPrefix=1
+          - JwtCheck
+          # filter名称必须是RequestRateLimiter
+          - name: RequestRateLimiter
+            args:
+              # 使用SpEL按名称引用bean
+              key-resolver: "#{@remoteAddrKeyResolver}"
+              # 允许用户每秒处理多少个请求
+              redis-rate-limiter.replenishRate: 10
+              # 令牌桶的容量，允许在一秒钟内完成的最大请求数
+              redis-rate-limiter.burstCapacity: 20
+      default-filters:
+      - name: Hystrix
+        args:
+          name: fallbackcmd
+          fallbackUri: forward:/fallback
+  redis:
+    host: 192.168.1.242
+    port: 6379
 
 # 调整Hystrix默认超时时间
 hystrix:
